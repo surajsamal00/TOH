@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+#towers {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+.tower {
+  width: 120px;
+  height: 300px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  background: #f0f0f0;
+}
+.disc {
+  height: 20px;
+  background: steelblue;
+  margin: 2px 0;
+  border-radius: 4px;
+}
+#statusBar {
+  width: 200px;
+  height: 20px;
+  margin: 20px auto;
+  background: white;
+  border: 1px solid black;
+}
