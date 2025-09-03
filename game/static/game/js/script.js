@@ -119,6 +119,8 @@ function undoMove() {
 function checkWin() {
   if (towers[2].childElementCount === discTotal) {
     document.getElementById("gameOver").style.display = "block";
+    document.getElementById("gameOverText").innerText =
+      `Well Played! You solved the puzzle in ${moveCount} moves!`;
   }
 }
 
