@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tower of Hanoi</title>
+  <link rel="stylesheet" href="{% static 'game/css/style.css' %}">
+</head>
+<body>
+  <h2>Tower of Hanoi</h2>
+
+  <!-- Game setup with slider -->
+  <div id="setup">
+    <label for="discSlider">Number of Discs: <span id="discCountLabel">3</span></label>
+    <input type="range" id="discSlider" min="3" max="12" value="3" oninput="updateDiscLabel(this.value)">
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <!-- Moves counter -->
+  <p id="moves">Moves: 0</p>
+
+  <!-- Action buttons -->
+  <div class="action-buttons">
+    <button id="undoBtn" onclick="undoMove()">Undo</button>
+    <button id="restartBtn" onclick="restartGame()">Restart</button>
+  </div>
+
+  <!-- Towers -->
+  <div id="towers">
+    <div class="tower" id="tower1"></div>
+    <div class="tower" id="tower2"></div>
+    <div class="tower" id="tower3"></div>
+  </div>
+
+  <!-- Game over -->
+  <div id="gameOver">
+    Well Played! You solved the puzzle!
+    <br>
+    <button onclick="restartGame()">Play Again</button>
+  </div>
+
+  <script src="{% static 'game/js/script.js' %}"></script>
+  <script>
+    function updateDiscLabel(val) {
+      document.getElementById('discCountLabel').innerText = val;
+    }
+  </script>
+</body>
+</html>

@@ -17,10 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 from game.views import save_game
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/save_game/", save_game),
     path("game/", include("game.urls")),
+    path("", lambda request: redirect("game:hanoi"), name="home"),
 ]

@@ -21,4 +21,4 @@ def save_game(request):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 def hanoi(request):
-    return render(request, "game/hanoi.html")
+    return render(request, "game/index.html")
