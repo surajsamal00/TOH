@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Rizz Master</title>
     <style>
-        /* Fullscreen reset */
+        /* --- Fullscreen Reset --- */
         html, body {
             margin: 0;
             padding: 0;
@@ -14,9 +14,12 @@
             background: black;
             overflow: hidden;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Video fills screen without cropping */
+        /* --- Video Styling --- */
         #rizzVideo {
             position: absolute;
             top: 50%;
@@ -29,15 +32,16 @@
             z-index: 0;
         }
 
-        /* Overlay text container with blur */
+        /* --- Overlay Text --- */
         .overlay-text {
             position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: white;
+            color: #fff;
             font-size: 2em;
-            text-shadow: 2px 2px 5px black;
+            font-weight: bold;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
             opacity: 0;
             transition: opacity 1.5s ease-in;
             z-index: 2;
@@ -46,6 +50,7 @@
             border-radius: 10px;
             background: rgba(0,0,0,0.4);
             backdrop-filter: blur(6px);
+            white-space: nowrap; /* prevent wrapping */
         }
         .overlay-text.visible {
             opacity: 1;
@@ -55,7 +60,7 @@
             transition: opacity 1s ease;
         }
 
-        /* Play button */
+        /* --- Play Button --- */
         .play-btn {
             position: absolute;
             top: 50%;
@@ -63,31 +68,44 @@
             transform: translate(-50%, -50%);
             padding: 1em 2em;
             font-size: 2em;
-            background: rgba(0,0,0,0.6);
-            color: white;
+            background: rgba(255, 126, 103, 0.8);
+            color: #fff;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             z-index: 3;
-            transition: opacity 1s ease;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px black;
         }
         .play-btn:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 94, 59, 0.9);
         }
         .play-btn.fade-out {
             opacity: 0;
+            pointer-events: none;
         }
 
-        /* Responsive adjustments */
+        /* --- Responsive for Mobile --- */
         @media (max-width: 768px) {
             .overlay-text {
-                font-size: 1.5em;
+                font-size: 1.4em;
                 top: 10px;
                 padding: 0.15em 0.4em;
             }
             .play-btn {
-                font-size: 1.5em;
-                padding: 0.8em 1.5em;
+                font-size: 1.4em;
+                padding: 0.7em 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay-text {
+                font-size: 1.1em;
+                padding: 0.1em 0.3em;
+            }
+            .play-btn {
+                font-size: 1.1em;
+                padding: 0.5em 1.2em;
             }
         }
     </style>
@@ -100,11 +118,11 @@
         Your browser does not support HTML5 video.
     </video>
 
-    <!-- Overlay text -->
+    <!-- Overlay Text -->
     <div class="overlay-text" id="overlayText">🎉HAPPY BIRTHDAY BHAI!!🎉</div>
 
-    <!-- Play button -->
-    <button class="play-btn" id="playBtn">▶ Play Secret Message </button>
+    <!-- Play Button -->
+    <button class="play-btn" id="playBtn">▶ Play Secret Message</button>
 
     <!-- Script -->
     <script>
@@ -113,24 +131,20 @@
             const playBtn = document.getElementById("playBtn");
             const overlayText = document.getElementById("overlayText");
 
-            // Start paused and muted (required for autoplay policies)
+            // Video paused initially
             video.currentTime = 0;
             video.pause();
             video.muted = true;
 
             playBtn.addEventListener("click", () => {
-                // Unmute on user gesture
-                video.muted = false;
-
+                video.muted = false; // unmute on user gesture
                 video.play().then(() => {
-                    // Fade out play button
                     playBtn.classList.add("fade-out");
                     setTimeout(() => playBtn.style.display = "none", 1000);
 
-                    // Fade in overlay text
                     overlayText.classList.add("visible");
 
-                    // Fade out overlay text after 3 seconds
+                    // Auto fade out after 60s
                     setTimeout(() => overlayText.classList.add("fade-out"), 60000);
                 }).catch(err => {
                     console.error("Playback failed:", err);
