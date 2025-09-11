@@ -80,6 +80,7 @@
     document.addEventListener("DOMContentLoaded", () => {
     const messages = [
         "Sussy baka detected. 🚨👀",
+        "Kete khelibu ebe pai etiki thau, Gud Ni8 ❤️",
         "Mission failed. Go home and sleep. 😴",
         "Empty. Like my heart at midnight. 🥲",
         "Out of stock. Like Maggi during lockdown. 🍜🚫",
@@ -94,13 +95,11 @@
         "Usne vi aise hi block kr diya tha. 💔",
         "Yeh lo ek L. 🫵😂",
         "Access denied. Admin ne block kiya. 🔒",
-        "Ruko zara… sabr karo… actually no, khatam. ⏳",
-        "Beta tumse na ho payega. 🤷‍♂️",
+        "Ruko zara… sabr karo… actually no,khatam.⏳",
         "Lagta hai ab tu NPC ban gaya hai. 🕹️",
         "Khel khatam, tension khatam. 🧘",
         "Your account has been sus-pended. 🚫",
         "Samajh ja bhai, zyada try mat kar. 🧠",
-        "Lag gaye 50-50. 🥲",
         // --- Spicy Meme / Trade War / Global Banter ---
         "Trade deal cancelled. China wins again. 🏮📉",
         "Imports closed. No more supplies for you. 🚢🚫",
@@ -117,7 +116,7 @@
         "Bro, even ChatGPT said no. 🤖✋",
         "Meanwhile, in another timeline, this worked. 🌌",
         "Even NASA can’t launch this again. 🚀💥",
-        "RIP, this use died like Vine. 🪦📱"
+        "RIP, this webpage died like Vine. 🪦📱"
     ];
 
     let lastIndex = -1;
@@ -144,7 +143,7 @@
     }
 
     // Show one immediately (without fade delay)
-    const firstIndex = getNextIndex(messages.length);
+    const firstIndex = 0;
     messageEl.innerText = messages[firstIndex];
     lastIndex = firstIndex;
 
