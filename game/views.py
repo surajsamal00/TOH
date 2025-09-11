@@ -29,7 +29,7 @@ def rizz_master(request):
     and plays with sound when user clicks the play button.
     """
     settings = GameSettings.objects.first()
-    if not settings or settings.available_uses < 6 :
+    if not settings or settings.available_uses < 8 :
         return redirect('no_uses_left')
     
     settings.available_uses -= 1
