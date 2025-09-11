@@ -104,7 +104,7 @@ towers.forEach(tower => {
 // --- Start game from slider ---
 function startGame() {
   let discs = parseInt(document.getElementById("discSlider").value);
-  if (discs < 4) discs = 4;
+  if (discs < 4) discs = 3;
   init(discs);
   document.getElementById("setup").style.display = "none";
 }
@@ -157,4 +157,4 @@ function checkWin() {
 }
 
 // --- Initialize default ---
-document.addEventListener("DOMContentLoaded", () => init(4));
+document.addEventListener("DOMContentLoaded", () => init(3));

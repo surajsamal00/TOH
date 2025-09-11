@@ -15,7 +15,7 @@ def game_view(request):
     # Decrease by 1 use
     settings.available_uses -= 1
 
-    if settings.available_uses == 8:
+    if settings.available_uses == 9:
         settings.save()
         return redirect('rizz_master')
 
@@ -30,7 +30,7 @@ def rizz_master(request):
     """
     settings = GameSettings.objects.first()
     if not settings or settings.available_uses < 6 :
-        return HttpResponse('No')
+        return redirect('no_uses_left')
     
     settings.available_uses -= 1
     settings.save()

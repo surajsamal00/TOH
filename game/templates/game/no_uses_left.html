@@ -1,2 +1,122 @@
-<h2>No more available uses left!</h2>
-<p>Please come back later.</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>No Uses Left</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .message-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      max-width: 90%;
+      transition: opacity 0.8s ease;
+    }
+
+    .message-box h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .message-box p {
+      font-size: 1.2em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      margin-top: 0;
+    }
+
+    .message-box a {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background: #ff7e67;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .message-box a:hover {
+      background: #ff5c3b;
+    }
+
+    @media (max-width: 600px) {
+      .message-box {
+        padding: 30px 20px;
+      }
+      .message-box h2 {
+        font-size: 1.8em;
+      }
+      .message-box p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h2 id="randomMessage">{{ message }}</h2>
+    <p>You are sus 😳 I’m calling the police 🚓</p>
+    <a href="{% url 'hanoi' %}">Try Again</a>
+  </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const messages = [
+        "No more available uses left! 😢",
+        "Oops! You maxed it out!",
+        "Bruh… you finished everything 🤯",
+        "Mission failed. Go home and sleep. 🎮",
+        "Empty. Like my heart at midnight. 🥲"
+    ];
+
+    let lastIndex = -1;
+    const messageEl = document.getElementById("randomMessage");
+
+    function getNextIndex(arrayLength) {
+        let nextIndex;
+        do {
+        nextIndex = Math.floor(Math.random() * arrayLength);
+        } while (nextIndex === lastIndex);
+        lastIndex = nextIndex;
+        return nextIndex;
+    }
+
+    function changeMessage() {
+        const msgIndex = getNextIndex(messages.length);
+        messageEl.style.transition = "opacity 0.5s ease";
+        messageEl.style.opacity = 0;
+
+        // Short timeout to switch text while faded out
+        setTimeout(() => {
+        messageEl.innerText = messages[msgIndex];
+        messageEl.style.opacity = 1;
+        }, 100); // very short delay
+    }
+
+    // Show a message immediately on load
+    changeMessage();
+
+    // Then update every 5 seconds
+    setInterval(changeMessage, 5000);
+    });
+  </script>
+
+</body>
+</html>
