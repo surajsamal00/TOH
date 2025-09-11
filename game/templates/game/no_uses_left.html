@@ -72,13 +72,15 @@
 <body>
   <div class="message-box">
     <h2 id="randomMessage">{{ message }}</h2>
-    <p>You are sus 😶‍🌫️ I’m calling the police 🚓🚨</p>
-    <a href="{% url 'hanoi' %}">Try Again</a>
+    <p>Hopefully I'd have the honour to make some <br>more games for you guys too in the future.. </p>
+    <a href="{% url 'hanoi' %}">( >_< )</a> 
+    {% comment %} try again button {% endcomment %}
   </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     const messages = [
+        "I have suspended this website.. If you have helped me during the design and testing phase of this game, I would like to thank you with all my heart for all the support and advice I received from you guys.",
         "Sussy baka detected. 🚨👀",
         "Kete khelibu ebe pai etiki thau, Gud Ni8 ❤️",
         "Mission failed. Go home and sleep. 😴",
@@ -137,18 +139,18 @@
         messageEl.style.opacity = 0;
 
         setTimeout(() => {
-        messageEl.innerText = messages[msgIndex];
+        messageEl.innerText = messages[0]; // using zero index for static
         messageEl.style.opacity = 1;
         }, 100);
     }
 
     // Show one immediately (without fade delay)
     const firstIndex = getNextIndex(messages.length);
-    messageEl.innerText = messages[firstIndex];
+    messageEl.innerText = messages[0]; // using zero index for static
     lastIndex = firstIndex;
 
-    setInterval(changeMessage, 5000);
-    });
+    {% comment %} setInterval(changeMessage, 5000); {% endcomment %}
+  }); 
 </script>
 
 

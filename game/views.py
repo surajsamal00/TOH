@@ -8,6 +8,7 @@ def game_view(request):
     if not settings:
         # Create the singleton if it doesn't exist
         settings = GameSettings.objects.create(available_uses=1, special_message="")
+        settings.available_uses = 0
 
     if settings.available_uses <= 0:
         return redirect('no_uses_left')
