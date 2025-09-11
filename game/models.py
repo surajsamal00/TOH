@@ -1,12 +1,16 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
+class GameSettings(models.Model):
+    available_uses = models.IntegerField(default=1)
+    fresh = models.BooleanField(default=True)  # first-time message flag
+    special_message = models.CharField(
+        max_length=255, 
+        default="🎉 Congrats! This is your first win! 🎉"
+    )
 
-class GameSession(models.Model):
-    player = models.CharField(max_length=100)
-    discs = models.IntegerField(default=3)
-    moves = models.IntegerField(default=0)
-    optimal_moves = models.IntegerField(default=0)
-    status = models.CharField(max_length=20, default="ongoing")  
-    created_at = models.DateTimeField(auto_now_add=True)
+    def save(self, *args, **kwargs):
+        self.pk = 1   # force primary key to always be 1
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Available Uses: {self.available_uses}, Fresh: {self.fresh}"

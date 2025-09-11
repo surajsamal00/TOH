@@ -1,3 +1,17 @@
+const gameDataDiv = document.getElementById("gameData");
+let specialMessage = "";
+
+if (gameDataDiv) {
+    try {
+        let raw = gameDataDiv.dataset.specialMessage || "";
+        // wrap in quotes and escape quotes inside
+        specialMessage = JSON.parse('"' + raw.replace(/"/g, '\\"') + '"');
+    } catch (e) {
+        console.error("Error parsing special message:", e);
+        specialMessage = raw; // fallback
+    }
+}
+
 let towers = [
   document.getElementById("tower1"),
   document.getElementById("tower2"),
@@ -5,8 +19,9 @@ let towers = [
 ];
 let selectedDisc = null;
 let moveCount = 0;
-let discTotal = 3;
+let discTotal = 4;
 let moveHistory = [];
+let gameOver = false;
 
 // Initialize game
 function init(discs) {
@@ -45,6 +60,7 @@ function updateMoves() {
 // Tower click handling
 towers.forEach(tower => {
   tower.addEventListener("click", function() {
+    if(gameOver) return;
     if (selectedDisc === null) {
       let topDisc = tower.lastElementChild;
       if (topDisc) {
@@ -89,13 +105,14 @@ towers.forEach(tower => {
 // Start game from slider
 function startGame() {
   let discs = parseInt(document.getElementById("discSlider").value);
-  if (discs < 3) discs = 3;
+  if (discs < 4) discs = 4;
   init(discs);
   document.getElementById("setup").style.display = "none";
 }
 
 // Restart game
 function restartGame() {
+  gameOver = false;
   document.getElementById("setup").style.display = "block";
   towers.forEach(t => t.innerHTML = "");
   document.getElementById("moves").innerText = "Moves: 0";
@@ -118,11 +135,16 @@ function undoMove() {
 // Check if all discs are moved to tower3
 function checkWin() {
   if (towers[2].childElementCount === discTotal) {
+    gameOver = true;
     document.getElementById("gameOver").style.display = "block";
-    document.getElementById("gameOverText").innerText =
-      `Well Played! You solved the puzzle in ${moveCount} moves!`;
+    document.getElementById("gameOverText").innerHTML =
+      `<strong>Well Played! You solved the puzzle in ${moveCount} moves!</strong>
+       <br><br>
+       ${specialMessage ? `<strong>${specialMessage}</strong>` : ""}`;
   }
 }
 
 // Default start
-init(3);
+document.addEventListener("DOMContentLoaded", function() {
+    init(3); // default 4 discs
+});

@@ -92,3 +92,10 @@ body {
     width: 80%;
   }
 }
+
+#gameOverText {
+    white-space: pre-wrap; /* preserves newlines and spaces */
+    word-wrap: break-word; /* wraps long lines */
+    font-size: 16px;       /* optional styling */
+    line-height: 1.4;      /* optional for spacing between lines */
+}

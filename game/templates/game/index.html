@@ -11,8 +11,8 @@
 
   <!-- Game setup with slider -->
   <div id="setup">
-    <label for="discSlider">Number of Discs: <span id="discCountLabel">3</span></label>
-    <input type="range" id="discSlider" min="3" max="12" value="3" oninput="updateDiscLabel(this.value)">
+    <label for="discSlider">Number of Discs: <span id="discCountLabel">4</span></label>
+    <input type="range" id="discSlider" min="4" max="12" value="4" oninput="updateDiscLabel(this.value)">
     <button onclick="startGame()">Start Game</button>
   </div>
 
@@ -38,6 +38,9 @@
     <br>
     <button onclick="restartGame()">Play Again</button>
   </div>
+
+  <div id="gameData" data-special-message="{{ special_message|escapejs }}"></div>
+  <span id="gameOverText"></span>
 
   <script src="{% static 'game/js/script.js' %}"></script>
   <script>
