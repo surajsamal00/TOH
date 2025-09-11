@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import GameSettings
+from django.http import JsonResponse
 
 def game_view(request):
     settings = GameSettings.objects.first()
@@ -14,26 +15,25 @@ def game_view(request):
     # Decrease by 1 use
     settings.available_uses -= 1
 
-    if settings.available_uses == 0:
+    if settings.available_uses == 7:
         settings.save()
         return redirect('rizz_master')
 
-    # Show special message only if fresh
-    special_message = settings.special_message if settings.fresh else ""
-    if settings.fresh:
-        settings.fresh = False  # mark it as used
-
     settings.save()
 
-    return render(request, 'game/index.html', {
-        "special_message": special_message
-    })
+    return render(request, 'game/index.html')
 
 def rizz_master(request):
     """
     Page that shows a looping video. Initially paused at 0:00
     and plays with sound when user clicks the play button.
     """
+    settings = GameSettings.objects.first()
+    if not settings or settings.available_uses < 5 :
+        return HttpResponse('No')
+    
+    settings.available_uses -= 1
+    settings.save()
     return render(request, 'game/rizz_master.html')
 
 def set_uses(request, value):
@@ -63,6 +63,20 @@ def view_special(request):
     settings, _ = GameSettings.objects.get_or_create(id=1)
     status = "fresh" if settings.fresh else "already used"
     return HttpResponse(f"<h2>Special message: {settings.special_message} ({status})</h2>")
+
+
+
+def get_special_message(request):
+    settings, _ = GameSettings.objects.get_or_create(id=1)
+    if settings.fresh:
+        msg = settings.special_message
+        # mark as used
+        settings.fresh = False
+        settings.save()
+        return JsonResponse({'message': msg})
+    else:
+        return JsonResponse({'message': ''})
+
 
 
 def no_uses_left(request):

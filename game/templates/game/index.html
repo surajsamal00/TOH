@@ -7,41 +7,51 @@
   <link rel="stylesheet" href="{% static 'game/css/style.css' %}">
 </head>
 <body>
-  <h2>Tower of Hanoi</h2>
+  <!-- Page Title -->
+  <header>
+    <h1>Tower of Hanoi</h1>
+    <p>Made by Backchod_Suraj</p>
+  </header>
 
-  <!-- Game setup with slider -->
-  <div id="setup">
-    <label for="discSlider">Number of Discs: <span id="discCountLabel">4</span></label>
-    <input type="range" id="discSlider" min="4" max="12" value="4" oninput="updateDiscLabel(this.value)">
-    <button onclick="startGame()">Start Game</button>
+  <!-- Game Container -->
+  <div id="gameContainer">
+    <!-- Setup -->
+    <div id="setup">
+      <label for="discSlider">Number of Discs: <span id="discCountLabel">4</span></label>
+      <input type="range" id="discSlider" min="4" max="12" value="4" oninput="updateDiscLabel(this.value)">
+      <button class="start-btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Moves counter -->
+    <p id="moves">Moves: 0</p>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+      <button id="undoBtn" onclick="undoMove()">Undo</button>
+      <button id="restartBtn" onclick="restartGame()">Restart</button>
+    </div>
+
+    <!-- Towers -->
+    <div id="towers">
+      <div class="tower" id="tower1"></div>
+      <div class="tower" id="tower2"></div>
+      <div class="tower" id="tower3"></div>
+    </div>
+
+    <!-- Game over modal -->
+    <div id="gameOver">
+      <div id="gameOverContent">
+        <span id="gameOverText"></span>
+        <br>
+        <button onclick="restartGame()">Play Again</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Moves counter -->
-  <p id="moves">Moves: 0</p>
-
-  <!-- Action buttons -->
-  <div class="action-buttons">
-    <button id="undoBtn" onclick="undoMove()">Undo</button>
-    <button id="restartBtn" onclick="restartGame()">Restart</button>
-  </div>
-
-  <!-- Towers -->
-  <div id="towers">
-    <div class="tower" id="tower1"></div>
-    <div class="tower" id="tower2"></div>
-    <div class="tower" id="tower3"></div>
-  </div>
-
-  <!-- Game over -->
-  <div id="gameOver">
-    <span id="gameOverText"></span>
-    <br>
-    <button onclick="restartGame()">Play Again</button>
-  </div>
-
-  <div id="gameData" data-special-message="{{ special_message|escapejs }}"></div>
-  <span id="gameOverText"></span>
-
+  <!-- Scripts -->
+  <script>
+    const getSpecialUrl = "{% url 'get_special_message' %}";
+  </script>
   <script src="{% static 'game/js/script.js' %}"></script>
   <script>
     function updateDiscLabel(val) {

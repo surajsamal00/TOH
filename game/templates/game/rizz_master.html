@@ -5,41 +5,47 @@
     <meta charset="UTF-8">
     <title>Rizz Master</title>
     <style>
-        /* Reset and fullscreen */
+        /* Fullscreen reset */
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
             width: 100%;
+            height: 100%;
             background: black;
             overflow: hidden;
             font-family: Arial, sans-serif;
         }
 
-        /* Video covers screen */
-            #rizzVideo {
+        /* Video fills screen without cropping */
+        #rizzVideo {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 100%;
             height: 100%;
             transform: translate(-50%, -50%);
+            object-fit: contain; /* no cropping */
+            background: black;
             z-index: 0;
-            object-fit: contain; /* <-- no cropping, entire video visible */
-            background: black;   /* letterbox color */
         }
 
-        /* Overlay text */
+        /* Overlay text container with blur */
         .overlay-text {
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             color: white;
             font-size: 2em;
             text-shadow: 2px 2px 5px black;
             opacity: 0;
             transition: opacity 1.5s ease-in;
-            z-index: 1;
+            z-index: 2;
+            text-align: center;
+            padding: 0.2em 0.6em;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(6px);
         }
         .overlay-text.visible {
             opacity: 1;
@@ -62,15 +68,27 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            z-index: 2;
-            transition: all 0.5s ease;
+            z-index: 3;
+            transition: opacity 1s ease;
         }
         .play-btn:hover {
             background: rgba(255,255,255,0.2);
         }
         .play-btn.fade-out {
             opacity: 0;
-            transition: opacity 1s ease;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .overlay-text {
+                font-size: 1.5em;
+                top: 10px;
+                padding: 0.15em 0.4em;
+            }
+            .play-btn {
+                font-size: 1.5em;
+                padding: 0.8em 1.5em;
+            }
         }
     </style>
 </head>
@@ -83,14 +101,43 @@
     </video>
 
     <!-- Overlay text -->
-    <div class="overlay-text" id="overlayText">
-        🎉 You are the Rizz Master! 🎉
-    </div>
+    <div class="overlay-text" id="overlayText">🎉 HAPPY BIRTHDAY BHAI! 🎉</div>
 
     <!-- Play button -->
-    <button class="play-btn" id="playBtn">▶ Play Video & Sound</button>
+    <button class="play-btn" id="playBtn">▶ Play Secret Message </button>
 
     <!-- Script -->
-    <script src="{% static 'game/js/rizz.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById("rizzVideo");
+            const playBtn = document.getElementById("playBtn");
+            const overlayText = document.getElementById("overlayText");
+
+            // Start paused and muted (required for autoplay policies)
+            video.currentTime = 0;
+            video.pause();
+            video.muted = true;
+
+            playBtn.addEventListener("click", () => {
+                // Unmute on user gesture
+                video.muted = false;
+
+                video.play().then(() => {
+                    // Fade out play button
+                    playBtn.classList.add("fade-out");
+                    setTimeout(() => playBtn.style.display = "none", 1000);
+
+                    // Fade in overlay text
+                    overlayText.classList.add("visible");
+
+                    // Fade out overlay text after 3 seconds
+                    setTimeout(() => overlayText.classList.add("fade-out"), 60000);
+                }).catch(err => {
+                    console.error("Playback failed:", err);
+                    alert("Click again to start video (browser requires user gesture).");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
