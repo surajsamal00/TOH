@@ -129,6 +129,7 @@ header p {
 .disc.selected {
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(255,255,255,0.7);
+  z-index: 10;
 }
 
 /* --- Game Over Modal --- */
@@ -174,19 +175,14 @@ header p {
 /* --- Responsive --- */
 @media (max-width: 600px) {
   .tower {
-    width: 28vw;
-    height: 40vh;
+    width: 35vw;
+    height: 45vh;
   }
   .disc {
-    min-height: 12px;
+    min-height: 14px;
+    font-size: 0.9em;
   }
   #discSlider {
     width: 80%;
   }
-}
-
-.disc.selected {
-  transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-  z-index: 10;
 }

@@ -15,7 +15,7 @@ def game_view(request):
     # Decrease by 1 use
     settings.available_uses -= 1
 
-    if settings.available_uses == 7:
+    if settings.available_uses == 8:
         settings.save()
         return redirect('rizz_master')
 
@@ -29,7 +29,7 @@ def rizz_master(request):
     and plays with sound when user clicks the play button.
     """
     settings = GameSettings.objects.first()
-    if not settings or settings.available_uses < 5 :
+    if not settings or settings.available_uses < 6 :
         return HttpResponse('No')
     
     settings.available_uses -= 1
