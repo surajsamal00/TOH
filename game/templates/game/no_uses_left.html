@@ -101,7 +101,7 @@
         "Your account has been sus-pended. 🚫",
         "Samajh ja bhai, zyada try mat kar. 🧠",
         "Lag gaye 50-50. 🥲",
-        # --- Spicy Meme / Trade War / Global Banter ---
+        // --- Spicy Meme / Trade War / Global Banter ---
         "Trade deal cancelled. China wins again. 🏮📉",
         "Imports closed. No more supplies for you. 🚢🚫",
         "Negotiations failed. UN is disappointed. 🌍😔",
@@ -109,7 +109,7 @@
         "Local server says: Make in India only. 🇮🇳",
         "Inflation bhi tere doston jaisa hai... badhta hi ja raha. 📈",
         "This content banned in 172 countries. 🌐🚫",
-        # --- Absurd Meme Energy ---
+        // --- Absurd Meme Energy ---
         "Congratulations, you unlocked nothing! 🎁❌",
         "Free trial ended. Subscribe for 999₹/month. 💳😂",
         "Achievement unlocked: Desperation. 🏆😭",
@@ -117,7 +117,7 @@
         "Bro, even ChatGPT said no. 🤖✋",
         "Meanwhile, in another timeline, this worked. 🌌",
         "Even NASA can’t launch this again. 🚀💥",
-        "RIP, this use died like Vine. 🪦📱",
+        "RIP, this use died like Vine. 🪦📱"
     ];
 
     let lastIndex = -1;
@@ -137,20 +137,21 @@
         messageEl.style.transition = "opacity 0.5s ease";
         messageEl.style.opacity = 0;
 
-        // Short timeout to switch text while faded out
         setTimeout(() => {
         messageEl.innerText = messages[msgIndex];
         messageEl.style.opacity = 1;
-        }, 100); // very short delay
+        }, 100);
     }
 
-    // Show a message immediately on load
-    changeMessage();
+    // Show one immediately (without fade delay)
+    const firstIndex = getNextIndex(messages.length);
+    messageEl.innerText = messages[firstIndex];
+    lastIndex = firstIndex;
 
-    // Then update every 5 seconds
     setInterval(changeMessage, 5000);
     });
-  </script>
+</script>
+
 
 </body>
 </html>
