@@ -80,7 +80,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     const messages = [
-        "I have suspended this website.. If you have helped me during the design & testing phase of this game, I'd really like to thank you for all the support and advice I received from you guys.",
         "Sussy baka detected. 🚨👀",
         "Kete khelibu ebe pai etiki thau, Gud Ni8 ❤️",
         "Mission failed. Go home and sleep. 😴",
@@ -139,17 +138,17 @@
         messageEl.style.opacity = 0;
 
         setTimeout(() => {
-        messageEl.innerText = messages[0]; // using zero index for static
+        messageEl.innerText = messages[msgIndex]; // using zero index for static
         messageEl.style.opacity = 1;
         }, 100);
     }
 
     // Show one immediately (without fade delay)
     const firstIndex = getNextIndex(messages.length);
-    messageEl.innerText = messages[0]; // using zero index for static
+    messageEl.innerText = messages[firstIndex]; // using zero index for static
     lastIndex = firstIndex;
 
-    {% comment %} setInterval(changeMessage, 5000); {% endcomment %}
+    setInterval(changeMessage, 5000);
   }); 
 </script>
 
